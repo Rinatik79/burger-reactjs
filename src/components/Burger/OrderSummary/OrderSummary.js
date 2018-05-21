@@ -1,27 +1,32 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Auxillary from '../../../hoc/Auxillary';
 import Button from '../../UI/Button/Button'
 
-const orderSummary = (props) => {
-    const ingredienSummary = Object.keys(props.ingredients).map(igKey => {
-        return <li key={igKey}>
-                    <span style={{textTransform: "capitalize"}}>{igKey}</span>: {props.ingredients[igKey]}
-                </li>
-    });
-    
-    return (
-        <Auxillary>
-            <h3>Your Order</h3>
-            <p>A delitious burger with following ingredients:</p>
-            <ul>
-                {ingredienSummary}
-            </ul>
-            <p><strong>Total Price: {props.price.toFixed(2)}</strong></p>
-            <p>Continue to checkout?</p>
-            <Button btnType="Danger" clicked={props.purchaseCancelled}>CANCEL</Button>
-            <Button btnType="Success" clicked={props.purchaseContinued}>CONTINUE</Button>
-        </Auxillary>
-    );
-};
+class OrderSummary extends Component {
+    componentWillUpdate(){
+        console.log ('[OrderSummary] WillUpdate');
+    }
+    render () {
+        const ingredienSummary = Object.keys(this.props.ingredients).map(igKey => {
+            return (<li key={igKey}>
+                        <span style={{textTransform: "capitalize"}}>{igKey}</span>: {this.props.ingredients[igKey]}
+                    </li>);
+        });
 
-export default orderSummary;
+        return(
+            <Auxillary>
+                <h3>Your Order</h3>
+                <p>A delitious burger with following ingredients:</p>
+                <ul>
+                    {ingredienSummary}
+                </ul>
+                <p><strong>Total Price: {this.props.price.toFixed(2)}</strong></p>
+                <p>Continue to checkout?</p>
+                <Button btnType="Danger" clicked={this.props.purchaseCancelled}>CANCEL</Button>
+                <Button btnType="Success" clicked={this.props.purchaseContinued}>CONTINUE</Button>
+            </Auxillary>
+        );
+    }
+}
+
+export default OrderSummary;
